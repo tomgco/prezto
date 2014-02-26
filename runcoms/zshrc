@@ -12,3 +12,43 @@ fi
 
 # Customize to your needs...
 
+alias readme='less README.*'
+alias redis='redis-server /usr/local/etc/redis.conf'
+alias nodeversion='curl https://raw.github.com/joyent/node/master/ChangeLog | less'
+alias gzippo='cd ~/Dropbox/Projects/nodejs/gzippo/'
+alias PersonalSite='cd ~/Dropbox/Projects/nodejs/PersonalSite/'
+alias mongo-start='mongod run --config /usr/local/Cellar/mongodb/2.0.6-x86_64/mongod.conf'
+alias sub='open -a "Sublime Text 2"'
+alias please='sudo'
+alias flushdns='dscacheutil -flushcache'
+alias resource='source ~/.zshrc'
+alias furnace='ssh furnace -A -t "cd `pwd`; bash"'
+alias sniff="sudo ngrep -W byline -d 'en0' -t '^(GET|PUT|POST) ' 'tcp and port 80'"
+alias ls-la='ls -la'
+alias gop='pliers -d go | bunyan'
+alias dirsizes='du -ks * | sort -n -b | column -t'
+alias dircounts='for dp in *; do [ -d $dp ] && echo $(find $dp|wc -l) $dp; done | sort -n -b | column -t'
+alias cleantestdbs='echo show dbs | mongo | cut -f 1 | grep -e "^test.*" | xargs -I {} echo echo db.dropDatabase\\\(\\\) \| mongo {}'
+alias npmp='npm --registry=http://registry.npmjs.org'
+alias npmb='npm --registry=http://registry.npm.beta.clockte.ch/'
+alias topmem='ps -eo rss,vsz,pid,cputime,cmd --width 100 --sort rss,vsz | tail --lines 10'
+ulimit -n 2048
+bindkey '^R' history-incremental-pattern-search-backward
+githgrep() {
+  REGEX=$1
+  COUNT=$2
+  APPEND=""
+  shift
+  shift
+  shift
+  for i;
+    do APPEND="$APPEND $i";
+  done
+  git grep $REGEX $(git rev-list --all --max-count=$COUNT) -- $APPEND
+}
+export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+# Customize to your needs...
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/X11/bin:/opt/local/bin:/usr/src/node/deps/v8:/usr/src/node/deps/v8/tools:/usr/local/share/npm/bin:$PATH
+export LOG_LEVEL=trace
+alias l='ls -la'
+setopt NO_NOMATCH
