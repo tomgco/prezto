@@ -16,6 +16,8 @@ fi
 
 # Customize to your needs...
 
+ulimit -n 2048
+
 alias readme='less README.*'
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias nodeversion='curl https://raw.github.com/joyent/node/master/ChangeLog | less'
@@ -36,7 +38,8 @@ alias cleantestdbs='echo show dbs | mongo | cut -f 1 | grep -e "^test.*" | xargs
 alias npmp='npm --registry=http://registry.npmjs.org'
 alias npmb='npm --registry=http://registry.npm.beta.clockte.ch/'
 alias topmem='ps -eo rss,vsz,pid,cputime,cmd --width 100 --sort rss,vsz | tail --lines 10'
-ulimit -n 2048
+alias rmrm='/bin/rm'
+alias rm='echo "Bad things are about to happen"'
 bindkey '^R' history-incremental-pattern-search-backward
 githgrep() {
   REGEX=$1
@@ -50,9 +53,19 @@ githgrep() {
   done
   git grep $REGEX $(git rev-list --all --max-count=$COUNT) -- $APPEND
 }
-export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 # Customize to your needs...
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/X11/bin:/opt/local/bin:/usr/src/node/deps/v8:/usr/src/node/deps/v8/tools:/usr/local/share/npm/bin:$PATH
 export LOG_LEVEL=trace
 alias l='ls -la'
 setopt NO_NOMATCH
+if [ $TERM == 'xterm' ]; then
+  TERM='xterm-256color'
+fi
+
+## Joyent ACC
+export SDC_ACCOUNT=tomgco
+export SDC_URL='https://eu-ams-1.api.joyentcloud.com'
+export SDC_KEY_ID='7b:82:e6:98:21:dd:92:98:45:17:66:04:d0:1c:4b:b0'
+
+## Docker stuff
+export DOCKER_IP='ec2-54-77-54-233.eu-west-1.compute.amazonaws.com'
+export DOCKER_HOST=tcp://$DOCKER_IP:2375

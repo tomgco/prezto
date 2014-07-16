@@ -44,6 +44,8 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
+  /opt/couchbase/bin
+  /opt/couchbase/bin/tools
   $path
 )
 
