@@ -66,11 +66,3 @@ setopt NO_NOMATCH
 if [ $TERM == 'xterm' ]; then
   TERM='xterm-256color'
 fi
-
-## Joyent ACC
-export SDC_ACCOUNT=tomgco
-export SDC_URL='https://eu-ams-1.api.joyentcloud.com'
-export SDC_KEY_ID='7b:82:e6:98:21:dd:92:98:45:17:66:04:d0:1c:4b:b0'
-
-export DOCKER_HOST=tcp://192.168.59.103:2375
-export DOCKER_IP=192.168.59.103
