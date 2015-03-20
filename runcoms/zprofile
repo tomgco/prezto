@@ -46,6 +46,7 @@ path=(
   /usr/local/{bin,sbin}
   /opt/couchbase/bin
   /opt/couchbase/bin/tools
+  /Users/tomgco/bin
   $path
 )
 
