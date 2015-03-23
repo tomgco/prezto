@@ -24,8 +24,18 @@ function prompt_steeef_precmd {
 
   vcs_info 'prompt'
 
-  if (( $+functions[python-info] )); then
-    python-info
+  local found=0;
+  local S=$PWD;
+  while [ -n "${S}" ] 
+    do;
+      [ -e "package.json" ] && found=1;
+      S=${S%/*};
+  done
+  if [ $found -eq 1 ]; then
+    node-info
+    found=0;
+  else
+    node_info[version]=""
   fi
 }
 
@@ -81,12 +91,13 @@ function prompt_steeef_setup {
   zstyle ':vcs_info:*:prompt:*' formats "${branch_format}"
   zstyle ':vcs_info:*:prompt:*' nvcsformats   ""
 
-  # Set python-info parameters.
-  zstyle ':prezto:module:python:info:virtualenv' format '(%v)'
+  # Set note info
+  local node_format='('${_prompt_steeef_colors[3]}'%v%f)'
+  zstyle ':prezto:module:node:info:version' format ${node_format}
 
   # Define prompts.
   PROMPT="
-${_prompt_steeef_colors[2]}%n@${_prompt_steeef_colors[2]}%m%f ${_prompt_steeef_colors[5]}%~%f "'${vcs_info_msg_0_}''$python_info[virtualenv]'"$ "
+${_prompt_steeef_colors[2]}%n@${_prompt_steeef_colors[2]}%m%f ${_prompt_steeef_colors[5]}%~%f "'${vcs_info_msg_0_}''${node_info[version]}'"$ "
   RPROMPT=''
 }
 
