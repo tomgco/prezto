@@ -32,11 +32,12 @@ function prompt_steeef_precmd {
       S=${S%/*};
   done
   if [ $found -eq 1 ]; then
+    HIDE_NODE_VERSION=''
     node-info
     found=0;
   else
-    declare -A node_info
-    node_info[version]=""
+    HIDE_NODE_VERSION='true'
+    node-info
   fi
 }
 
