@@ -35,6 +35,7 @@ function prompt_steeef_precmd {
     node-info
     found=0;
   else
+    declare -A node_info
     node_info[version]=""
   fi
 }
