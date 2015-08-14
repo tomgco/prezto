@@ -41,9 +41,10 @@ alias rm='echo "Bad things are about to happen"'
 alias dps='f() {docker ps -a | awk '"'"'{print $1 " " $2}'"'"'}; f'
 alias did='f() {dps | grep $1 | awk '"'"'{print $1}'"'"' | head -1}; f'   # Docker id based on grep of docker ps
 alias dname='f() {dps | grep $1 | awk '"'"'{print $2}'"'"' | head -1}; f' # Docker name based on grep of docker ps
+alias dall='dps | grep "/*/" | awk '"'"'{print $1}'"'"' ORS='"'"' '"'"'| head -1'
 alias dlog='f() {echo $(dname $1); echo; docker logs -f $(did $1) | bunyan}; f' # Formatted output of docker container 
 alias dlogt='f() {echo $(dname $1); echo; docker logs -f -t $(did $1) | bunyan}; f' # Formatted output of docker container 
-alias b2d='/usr/local/bin/boot2docker start && $(/usr/local/bin/boot2docker shellinit); boot2docker ssh "date; sudo ntpd -q -p 78.129.254.77; date"; docker ps'
+alias b2d='/usr/local/bin/docker-machine start dev && eval "$(/usr/local/bin/docker-machine env dev)"; docker-machine ssh dev "date; sudo ntpd -q -p 78.129.254.77; date"; docker ps'
 #alias dockerd='export DOCKER_HOST=tcp://192.168.64.2:2375; cd ~/Projects/boot2docker-xhyve; sudo ~/Projects/boot2docker-xhyve/xhyverun.sh; cd -'
 alias xb2d='export DOCKER_HOST=tcp://192.168.64.2:2375;'
 bindkey '^R' history-incremental-pattern-search-backward
