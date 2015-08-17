@@ -24,4 +24,3 @@ if (( $+commands[npm] )); then
 
   unset cache_file
 fi
-

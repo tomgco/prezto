@@ -104,4 +104,3 @@ ${_prompt_steeef_colors[2]}%n@${_prompt_steeef_colors[2]}%m%f ${_prompt_steeef_c
 }
 
 prompt_steeef_setup "$@"
-
