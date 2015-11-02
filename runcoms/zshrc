@@ -48,9 +48,11 @@ alias dname='f() {dps | grep $1 | awk '"'"'{print $2}'"'"' | head -1}; f' # Dock
 alias dall='dps | grep "/*/" | awk '"'"'{print $1}'"'"' ORS='"'"' '"'"'| head -1'
 alias dlog='f() {echo $(dname $1); echo; docker logs -f $(did $1) | bunyan}; f' # Formatted output of docker container 
 alias dlogt='f() {echo $(dname $1); echo; docker logs -f -t $(did $1) | bunyan}; f' # Formatted output of docker container 
+alias retry='f() {until $@; do :; done}; f'
 alias b2d='/usr/local/bin/docker-machine start default && eval "$(/usr/local/bin/docker-machine env default)"; docker-machine ssh default "date; sudo ntpd -q -p 78.129.254.77; date"; docker ps'
 #alias dockerd='export DOCKER_HOST=tcp://192.168.64.2:2375; cd ~/Projects/boot2docker-xhyve; sudo ~/Projects/boot2docker-xhyve/xhyverun.sh; cd -'
 alias xb2d='export DOCKER_HOST=tcp://192.168.64.2:2375;'
+alias teamcity='open `cat .teamcity`'
 bindkey '^R' history-incremental-pattern-search-backward
 githgrep() {
   REGEX=$1
