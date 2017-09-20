@@ -6,10 +6,6 @@ BASE16_SCHEME="eighties"
 BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
 [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
-BASE16_SCHEME="eighties"
-BASE16_SHELL="$HOME/.config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
-[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
-
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -53,6 +49,7 @@ alias b2d='/usr/local/bin/docker-machine start default && eval "$(/usr/local/bin
 #alias dockerd='export DOCKER_HOST=tcp://192.168.64.2:2375; cd ~/Projects/boot2docker-xhyve; sudo ~/Projects/boot2docker-xhyve/xhyverun.sh; cd -'
 alias xb2d='export DOCKER_HOST=tcp://192.168.64.2:2375;'
 alias teamcity='open `cat .teamcity`'
+alias copy='xclip -selection c'
 bindkey '^R' history-incremental-pattern-search-backward
 githgrep() {
   REGEX=$1
@@ -67,9 +64,15 @@ githgrep() {
   git grep $REGEX $(git rev-list --all --max-count=$COUNT) -- $APPEND
 }
 # Customize to your needs...
+export VISUAL=vim
+export PACMAN="pacmatic"
 export LOG_LEVEL=trace
 alias l='ls -la'
 setopt NO_NOMATCH
 if [ $TERM == 'xterm' ]; then
   TERM='xterm-256color'
 fi
+export EDITOR=vim
+export GOPATH=$HOME/work
+export PATH="$GOPATH/bin/:$PATH"
+source <(kubectl completion zsh)
