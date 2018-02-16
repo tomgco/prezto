@@ -11,8 +11,42 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+#
 
-ulimit -n 2048
+tfdownload() {
+    local system=$(uname -s | tr 'A-Z' 'a-z')
+    local version=${1:-0.10.6}
+    mkdir -p ${HOME}/.terraform
+    pushd /tmp
+    #set -e
+    wget -c "https://releases.hashicorp.com/terraform/${version}/terraform_${version}_${system}_amd64.zip"
+    unzip "terraform_${version}_${system}_amd64.zip"
+    mv terraform "${HOME}/.terraform/terraform-${version}"
+    #set +e
+    popd
+}
+
+tfactivate() {
+    activate() {
+      ln -sf "${HOME}/.terraform/terraform-${version}" ${HOME}/bin/terraform
+      hash -r
+      command -V terraform
+      terraform --version
+    }
+    local version=${1:-0.10.6}
+    if [ -x "${HOME}/.terraform/terraform-${version}" ]; then
+      activate
+    else
+      tfdownload ${version}
+      activate
+    fi
+}
+
+tfversions() {
+    ls -1t "${HOME}/.terraform/" 2>&1 | sed -e "s/^terraform-//" | sort -n
+}
+
+# ulimit -n 2048
 
 alias readme='nd README.*'
 alias redis='redis-server /usr/local/etc/redis.conf'
@@ -21,7 +55,7 @@ alias gzippo='cd ~/Dropbox/Projects/nodejs/gzippo/'
 alias PersonalSite='cd ~/Dropbox/Projects/nodejs/PersonalSite/'
 alias mongo-start='mongod run --config /usr/local/Cellar/mongodb/2.0.6-x86_64/mongod.conf'
 alias sub='open -a "Sublime Text 2"'
-alias please='sudo'
+# alias please='sudo'
 alias flushdns='dscacheutil -flushcache'
 alias resource='source ~/.zshrc'
 alias furnace='ssh furnace -A -t "cd `pwd`; bash"'
@@ -75,3 +109,4 @@ export EDITOR=vim
 export GOPATH=$HOME/work
 export PATH="$GOPATH/bin/:$PATH"
 source <(kubectl completion zsh)
+source <(helm completion zsh)
